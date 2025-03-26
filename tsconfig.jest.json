@@ -1,0 +1,13 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "module": "commonjs", // Jest uses CommonJS
+      "isolatedModules": true, // Speeds up ts-jest by skipping type checking
+      "noEmit": true, // No need to emit files during tests
+      "skipLibCheck": true, // Skip type checking of declaration files,
+      "jsx": "react-jsx",
+      "esModuleInterop": true
+    },
+    "include": ["**/*.ts", "**/*.tsx", "**/*.test.ts", "**/*.test.tsx"],
+    "exclude": ["node_modules", ".next", "dist"]
+  }
