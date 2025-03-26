@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <main className="h-screen bg-gray-50 flex flex-col">
       <MenuBar />
-      <div className="flex-1 container mx-auto px-4 py-2 max-h-[calc(100vh-3rem)]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full">
+      <div className="flex-1 container mx-auto px-4 py-2 overflow-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0">
           <SectionOne error={error} isLoading={isLoading} />
           <SectionTwo error={error} isLoading={isLoading} />
         </div>
