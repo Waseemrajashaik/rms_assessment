@@ -1,7 +1,15 @@
+/**
+ * Utility functions and constants for earthquake data visualization.
+ * Includes D3.js helpers, data transformation, and UI configuration.
+ */
+
 import { debounce } from "lodash";
-import { Earthquake } from "@/types";
+import { DataPoint, Earthquake, TooltipStyle } from "@/types";
 import * as d3 from "d3";
 
+/**
+ * Default margin configuration for D3 visualizations
+ */
 export const defaultMargin = {
   bottom: 40,
   left: 50,
@@ -9,18 +17,18 @@ export const defaultMargin = {
   top: 20,
 } as const;
 
+/**
+ * Default styling for tooltip elements
+ */
 export const defaultTooltipStyle = {
   backgroundColor: "rgba(255, 255, 255, 0.9)",
   border: "1px solid #ccc",
   borderRadius: "4px",
 } as const;
 
-export type TooltipStyle = {
-  backgroundColor: string;
-  border: string;
-  borderRadius: string;
-};
-
+/**
+ * Available columns for earthquake data display
+ */
 export const columnOptions = [
   { label: "Time", value: "time", type: "date" },
   { label: "Magnitude", value: "magnitude", type: "number" },
@@ -42,25 +50,23 @@ export const columnOptions = [
   { label: "Alert", value: "alert", type: "string" },
   { label: "Updated", value: "updated", type: "date" },
 ];
+
+/**
+ * Numeric fields from column options for axis selection
+ */
 export const numericFields = columnOptions.filter((column) => column.type === "number");
 
-
+/**
+ * Creates a debounced resize handler for responsive visualizations
+ */
 export const createDebouncedResize = (callback: () => void) => {
   return debounce(callback, 250);
 };
 
-export interface DataPoint {
-  [key: string]: any;
-  x: number;
-  y: number;
-}
-
-export type Column<T, K extends keyof T> = {
-  header: string;
-  key: K;
-  render?: (value: T[K], item: T) => React.ReactNode;
-};
-
+/**
+ * Generates options for limiting displayed items
+ * @param totalCount - Total number of available items
+ */
 export const generateLimiterOptions = (totalCount: number): { label: string; value: number }[] => {
   if (totalCount <= 10) return [{ label: totalCount.toString(), value: totalCount }];
 
@@ -79,6 +85,12 @@ export const generateLimiterOptions = (totalCount: number): { label: string; val
   return [...options, { label: totalCount.toString(), value: totalCount }];
 };
 
+/**
+ * Transforms earthquake data into scatter plot points
+ * @param data - Array of earthquake data
+ * @param xAxis - Selected x-axis field
+ * @param yAxis - Selected y-axis field
+ */
 export const transformData = (data: Earthquake[], xAxis: string, yAxis: string): DataPoint[] => {
   return data
     .filter((earthquake) => {
@@ -100,6 +112,10 @@ export const transformData = (data: Earthquake[], xAxis: string, yAxis: string):
     }));
 };
 
+/**
+ * Calculates domain ranges for scatter plot axes
+ * @param transformedData - Array of transformed data points
+ */
 export const calculateDomains = (transformedData: DataPoint[]) => {
   if (transformedData.length === 0) return null;
 

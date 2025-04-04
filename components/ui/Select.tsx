@@ -4,7 +4,7 @@
  */
 
 "use client";
-import { SelectProps, Option } from "@/types";
+import { SelectProps } from "@/types";
 import React, { useEffect, useRef, useState } from "react";
 
 /**

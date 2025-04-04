@@ -1,22 +1,22 @@
+/**
+ * Type definitions for main application components.
+ */
+
 import { EarthquakeError } from "./EarthquakeErrors";
 
 /**
- * Props for the ColumnSelector component
- * @property {(columns: string[]) => void} onColumnChange - Callback function when columns are selected
- * @property {string[]} selectedColumns - Currently selected column values
+ * Props for column selector component
  */
 export interface ColumnSelectorProps {
-    onColumnChange: (columns: string[]) => void;
-    selectedColumns: string[];
-  }
+  onColumnChange: (columns: string[]) => void;
+  selectedColumns: string[];
+}
 
-  /**
- * Props for the SectionOne component
- * @property {EarthquakeError | null} error - Error state for earthquake data loading
- * @property {boolean} isLoading - Loading state indicator
+/**
+ * Common props for section components
  */
 export type SectionProps = {
-    error: EarthquakeError | null;
-    isLoading: boolean;
-  };
+  error: EarthquakeError | null;
+  isLoading: boolean;
+};
   

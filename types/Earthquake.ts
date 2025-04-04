@@ -1,3 +1,10 @@
+/**
+ * Type definitions for earthquake data.
+ */
+
+/**
+ * Interface representing earthquake event data
+ */
 export interface Earthquake {
   id: string;
   time: string;

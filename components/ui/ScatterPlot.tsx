@@ -4,12 +4,11 @@
  */
 
 "use client";
-import { ScatterPlotProps } from "@/types";
+import { DataPoint, ScatterPlotProps } from "@/types";
 import {
   calculateDomains,
   createDebouncedResize,
   createTooltip,
-  DataPoint,
   defaultMargin,
   defaultTooltipStyle,
   getAxisLabels,
