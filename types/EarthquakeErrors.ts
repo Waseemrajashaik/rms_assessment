@@ -1,3 +1,10 @@
+/**
+ * Custom error classes for earthquake data handling.
+ */
+
+/**
+ * Base error class for earthquake-related errors
+ */
 export class EarthquakeError extends Error {
   constructor(
     message: string,
@@ -9,6 +16,9 @@ export class EarthquakeError extends Error {
   }
 }
 
+/**
+ * Error for data validation failures
+ */
 export class EarthquakeValidationError extends EarthquakeError {
   constructor(message: string, details?: unknown) {
     super(message, "VALIDATION", details);
@@ -16,6 +26,9 @@ export class EarthquakeValidationError extends EarthquakeError {
   }
 }
 
+/**
+ * Error for API fetch failures
+ */
 export class EarthquakeFetchError extends EarthquakeError {
   constructor(message: string, details?: unknown) {
     super(message, "API", details);
@@ -23,6 +36,9 @@ export class EarthquakeFetchError extends EarthquakeError {
   }
 }
 
+/**
+ * Error for invalid parameter values
+ */
 export class EarthquakeParamError extends EarthquakeError {
   constructor(message: string, details?: unknown) {
     super(message, "VALIDATION", details);
@@ -30,6 +46,9 @@ export class EarthquakeParamError extends EarthquakeError {
   }
 }
 
+/**
+ * Error for network-related failures
+ */
 export class EarthquakeNetworkError extends EarthquakeError {
   constructor(message: string, details?: unknown) {
     super(message, "NETWORK", details);
