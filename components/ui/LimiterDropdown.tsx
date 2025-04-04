@@ -1,41 +1,23 @@
 /**
- * LimiterDropdown Component
- * 
- * A dropdown component for controlling the number of items displayed in a list or table.
- * Dynamically generates options based on the total count of items.
+ * A dropdown component for controlling the number of displayed items in a list or table.
+ * Features: Dynamic option generation, responsive design, accessible controls.
  */
 
 "use client";
 
-/**
- * Props for the LimiterDropdown component
- * @property {number} limiter - Current limit value
- * @property {(limiter: number) => void} setLimiter - Callback for limit changes
- * @property {number} totalCount - Total number of items available
- */
-interface LimiterDropdownProps {
-  limiter: number;
-  setLimiter: (limiter: number) => void;
-  totalCount: number;
-}
+import { LimiterDropdownProps } from "@/types";
 
 /**
- * LimiterDropdown Component
- * 
- * Renders a dropdown for controlling the number of displayed items with:
- * - Dynamic option generation based on total count
- * - Responsive design
- * - Accessible form controls
- * 
- * @param {LimiterDropdownProps} props - Component props
- * @returns {JSX.Element} Rendered component
+ * @param {number} limiter - Current limit value
+ * @param {(limiter: number) => void} setLimiter - Limit change callback
+ * @param {number} totalCount - Total available items
  */
 export function LimiterDropdown({
   limiter,
   setLimiter,
   totalCount,
 }: LimiterDropdownProps) {
-  // Generate options based on total count
+  // Generate options based on total item count
   const options = generateLimiterOptions(totalCount);
 
   return (
@@ -60,27 +42,22 @@ export function LimiterDropdown({
 }
 
 /**
- * Generates options for the limiter dropdown
- * Creates a series of options with increasing values:
- * - Starts with 50
- * - Increments by 50 until 100
+ * Generates dropdown options with increasing values:
+ * - Starts at 50, increments by 50 until 100
  * - Then increments by 100
- * - Always includes the total count as the last option
- * 
- * @param {number} totalCount - Total number of items available
- * @returns {Array<{label: string, value: number}>} Array of option objects
+ * - Always includes total count as last option
  */
 function generateLimiterOptions(
   totalCount: number,
 ): { label: string; value: number; }[] {
-  // If total count is small, just return a single option
+  // Return single option for small counts
   if (totalCount <= 10)
     return [{ label: totalCount.toString(), value: totalCount }];
 
   const options = [];
   let option = 50;
 
-  // Generate options with increasing values
+  // Generate increasing value options
   while (option <= totalCount) {
     options.push({ label: option.toString(), value: option });
     if (option < 100) {
@@ -90,6 +67,6 @@ function generateLimiterOptions(
     }
   }
 
-  // Add total count as the last option
+  // Add total count option
   return [...options, { label: totalCount.toString(), value: totalCount }];
 }

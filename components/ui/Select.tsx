@@ -1,54 +1,14 @@
 /**
- * Select Component
- * 
- * A customizable select component that supports both single and multi-select functionality.
- * Features include:
- * - Single and multi-select modes
- * - Custom option rendering
- * - Click outside to close
- * - Keyboard accessibility
- * - Custom styling with Tailwind CSS
+ * A customizable select component supporting single and multi-select modes.
+ * Features: Custom option rendering, click-outside closing, keyboard accessibility, Tailwind styling.
  */
 
 "use client";
+import { SelectProps, Option } from "@/types";
 import React, { useEffect, useRef, useState } from "react";
 
 /**
- * Option type for select items
- * @property {string} label - Display text for the option
- * @property {string} value - Value associated with the option
- */
-interface Option {
-  label: string;
-  value: string;
-}
-
-/**
- * Props for the Select component
- * @property {boolean} isMulti - Whether to allow multiple selections
- * @property {(value: string | string[]) => void} onChange - Callback for selection changes
- * @property {Option[]} options - Available options to select from
- * @property {string | string[]} value - Current selected value(s)
- */
-interface SelectProps {
-  isMulti?: boolean;
-  onChange: (value: string | string[]) => void;
-  options: Option[];
-  value: string | string[];
-}
-
-/**
- * Select Component
- * 
- * Renders a customizable select dropdown with the following features:
- * - Single and multi-select modes
- * - Custom option rendering
- * - Click outside to close
- * - Visual feedback for selected items
- * - Responsive design
- * 
- * @param {SelectProps} props - Component props
- * @returns {JSX.Element} Rendered component
+ * Renders a customizable select dropdown with single/multi-select support and responsive design.
  */
 export function Select({
   isMulti = false,
@@ -56,14 +16,14 @@ export function Select({
   options,
   value,
 }: SelectProps) {
-  // State for controlling dropdown visibility
+  // Controls dropdown open/close state
   const [isOpen, setIsOpen] = useState(false);
-  // Ref for handling click outside
+  // Reference for click-outside detection
   const selectRef = useRef<HTMLDivElement>(null);
-  // Normalize value to array for consistent handling
+  // Normalized value array for consistent handling
   const selectedValues = Array.isArray(value) ? value : [value];
 
-  // Effect to handle clicking outside the select
+  // Handles click-outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -79,24 +39,23 @@ export function Select({
   }, []);
 
   /**
-   * Handles option selection
-   * @param {string} optionValue - Value of the selected option
+   * Handles option selection with support for both single and multi-select modes
    */
   const handleOptionClick = (optionValue: string) => {
     if (isMulti) {
-      // Toggle selection for multi-select mode
+      // Toggle selection in multi-select mode
       const newValue = selectedValues.includes(optionValue)
         ? selectedValues.filter((v) => v !== optionValue)
         : [...selectedValues, optionValue];
       onChange(newValue);
     } else {
-      // Single selection mode
+      // Handle single selection
       onChange(optionValue);
       setIsOpen(false);
     }
   };
 
-  // Format display value based on selection mode
+  // Formats display text based on selection mode
   const displayValue = isMulti
     ? selectedValues.length > 0
       ? `${selectedValues.length} selected`
@@ -105,7 +64,7 @@ export function Select({
 
   return (
     <div className="relative" ref={selectRef}>
-      {/* Select trigger button */}
+      {/* Main select trigger with dropdown indicator */}
       <div
         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer flex justify-between items-center"
         onClick={() => setIsOpen(!isOpen)}
@@ -113,7 +72,7 @@ export function Select({
         <span>{displayValue}</span>
         <span className="ml-2">▼</span>
       </div>
-      {/* Dropdown options */}
+      {/* Dropdown options list */}
       {isOpen && (
         <div className="absolute z-11 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
           {options.map((option) => (

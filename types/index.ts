@@ -5,4 +5,9 @@ export type {
   EarthquakeFetchError,
   EarthquakeParamError,
   EarthquakeNetworkError,
-} from "./errors";
+} from "./EarthquakeErrors";
+export type { ErrorProps } from "./error";
+export type { LimiterDropdownProps, LoaderProps, ScatterPlotProps, Option, SelectProps, Column, TableProps } from "./uiType";
+export type { SectionWrapperProps } from "./wrapper";
+export type { ColumnSelectorProps, SectionProps } from "./component";
+export type { EarthquakeState } from "./store";

@@ -1,47 +1,22 @@
 /**
- * Error Component
- * 
- * A reusable error display component that shows error messages with optional retry functionality.
- * Features include:
- * - Custom error message display
- * - Optional retry button
- * - Accessible error icon
- * - Responsive design
+ * A reusable error display component with warning icon, error message, and optional retry button.
+ * Features: Custom error message, retry functionality, accessible design, responsive layout.
  */
 
+import { ErrorProps } from "@/types";
 import React from "react";
 
 /**
- * Props for the Error component
- * @property {string} className - Additional CSS classes
- * @property {string} message - Error message to display
- * @property {() => void} onRetry - Optional callback for retry action
- */
-interface ErrorProps {
-  className?: string;
-  message: string;
-  onRetry?: () => void;
-}
-
-/**
- * Error Component
- * 
- * Renders an error message display with the following features:
- * - Warning icon
- * - Error message text
- * - Optional retry button
- * - Responsive layout
- * - Accessible design
- * 
- * @param {ErrorProps} props - Component props
- * @returns {JSX.Element} Rendered component
+ * @param {string} className - Additional CSS classes
+ * @param {string} message - Error message to display
+ * @param {() => void} onRetry - Optional retry callback
  */
 const Error: React.FC<ErrorProps> = ({ className = "", message, onRetry }) => {
   return (
     <div
       className={`flex flex-col items-center justify-center p-4 text-center ${className}`}
     >
-      {/* Warning icon */}
+      {/* Warning icon for error indication */}
       <div className="mb-4 text-red-500">
         <svg
           className="h-12 w-12"
@@ -58,10 +33,10 @@ const Error: React.FC<ErrorProps> = ({ className = "", message, onRetry }) => {
           />
         </svg>
       </div>
-      {/* Error message */}
+      {/* Main error message display */}
       <h3 className="mb-2 text-lg font-semibold text-gray-900">Error</h3>
       <p className="mb-4 text-sm text-gray-600">{message}</p>
-      {/* Retry button (if callback provided) */}
+      {/* Retry action button */}
       {onRetry && (
         <button
           className="rounded-md bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"

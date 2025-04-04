@@ -1,6 +1,6 @@
 import { request } from "@/utils/axios";
 import { Earthquake } from "@/types/Earthquake";
-import { EarthquakeError } from "@/types/errors";
+import { EarthquakeError } from "@/types/EarthquakeErrors";
 
 export const fetchEarthquakes = async (): Promise<Earthquake[]> => {
   const response = await request.get("/earthquakes");
